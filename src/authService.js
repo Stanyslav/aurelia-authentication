@@ -367,7 +367,8 @@ export class AuthService {
     if (this.authentication.updateTokenCallstack.length === 0) {
       let content = {
         grant_type: 'refresh_token',
-        client_id : this.config.clientId ? this.config.clientId : undefined
+        client_id : this.config.clientId ? this.config.clientId : undefined,
+        client_secter : this.config.clientSecret ? this.config.clientSecret : undefined
       };
 
       content[this.config.refreshTokenSubmitProp] = this.authentication.getRefreshToken();

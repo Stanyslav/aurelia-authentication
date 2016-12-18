@@ -86,8 +86,10 @@
     "aurelia-path": "^1.0.0",
     "aurelia-router": "^1.0.0",
     "aurelia-templating-resources": "^1.0.0",
+    "babel-runtime": "^6.20.0",
     "extend": "^3.0.0",
-    "jwt-decode": "^2.0.0"
+    "jwt-decode": "^2.0.0",
+    "spoonx-tools": "^1.0.0-0"
   },
   "devDependencies": {
     "spoonx-tools": "^1.0.0-0"

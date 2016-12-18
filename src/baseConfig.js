@@ -117,6 +117,7 @@ export class BaseConfig {
   autoUpdateToken = true;
   // Oauth Client Id
   clientId = false;
+  clientSecret = null;
   // The the property from which to get the refresh token after a successful token refresh. Can also be dotted eg "refreshTokenProp.refreshTokenProp"
   refreshTokenProp = 'refresh_token';
   // The property name used to send the existing token when refreshing `{ "refreshTokenSubmitProp": '...' }`
