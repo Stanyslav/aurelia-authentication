@@ -1389,7 +1389,7 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
             var content = {
               grant_type: 'refresh_token',
               client_id: this.config.clientId ? this.config.clientId : undefined,
-              client_secter: this.config.clientSecret ? this.config.clientSecret : undefined
+              client_secret: this.config.clientSecret ? this.config.clientSecret : undefined
             };
 
             content[this.config.refreshTokenSubmitProp] = this.authentication.getRefreshToken();
@@ -1455,6 +1455,10 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
 
           if (this.config.clientId) {
             normalized.credentials.client_id = this.config.clientId;
+          }
+
+          if (this.config.clientSecret) {
+            normalized.credentials.client_secret = this.config.clientSecret;
           }
 
           return this.client.post(this.config.joinBase(this.config.loginUrl), normalized.credentials, normalized.options).then(function (response) {
