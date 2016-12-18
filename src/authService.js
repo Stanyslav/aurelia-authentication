@@ -382,7 +382,7 @@ export class AuthService {
 
       this.client.post(this.config.joinBase(this.config.refreshTokenUrl
                                             ? this.config.refreshTokenUrl
-                                            : this.config.loginUrl), content,requestOptions)
+                                            : this.config.loginUrl), content,this.requestOptions)
         .then(response => {
           this.setResponseObject(response);
           this.authentication.resolveUpdateTokenCallstack(this.isAuthenticated());
@@ -450,7 +450,7 @@ export class AuthService {
 
     if (typeof emailOrCredentials === 'object') {
       normalized.credentials = emailOrCredentials;
-      normalized.options     = {passwordOrOptions, ...requestOptions};
+      normalized.options     = {passwordOrOptions, ...this.requestOptions};
       normalized.redirectUri = optionsOrRedirectUri;
     } else {
       normalized.credentials = {
@@ -458,7 +458,7 @@ export class AuthService {
         'email'   : emailOrCredentials,
         'password': passwordOrOptions
       };
-      normalized.options     = {optionsOrRedirectUri, ...requestOptions};
+      normalized.options     = {optionsOrRedirectUri, ...this.requestOptions};
       normalized.redirectUri = redirectUri;
     }
 

@@ -1198,7 +1198,7 @@ export let AuthService = (_dec12 = inject(Authentication, BaseConfig, BindingSig
 
       content[this.config.refreshTokenSubmitProp] = this.authentication.getRefreshToken();
 
-      this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content, requestOptions).then(response => {
+      this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content, this.requestOptions).then(response => {
         this.setResponseObject(response);
         this.authentication.resolveUpdateTokenCallstack(this.isAuthenticated());
       }).catch(error => {
@@ -1242,7 +1242,7 @@ export let AuthService = (_dec12 = inject(Authentication, BaseConfig, BindingSig
 
     if (typeof emailOrCredentials === 'object') {
       normalized.credentials = emailOrCredentials;
-      normalized.options = _extends({ passwordOrOptions }, requestOptions);
+      normalized.options = _extends({ passwordOrOptions }, this.requestOptions);
       normalized.redirectUri = optionsOrRedirectUri;
     } else {
       normalized.credentials = {
@@ -1250,7 +1250,7 @@ export let AuthService = (_dec12 = inject(Authentication, BaseConfig, BindingSig
         'email': emailOrCredentials,
         'password': passwordOrOptions
       };
-      normalized.options = _extends({ optionsOrRedirectUri }, requestOptions);
+      normalized.options = _extends({ optionsOrRedirectUri }, this.requestOptions);
       normalized.redirectUri = redirectUri;
     }
 

@@ -1300,7 +1300,7 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
 
       content[this.config.refreshTokenSubmitProp] = this.authentication.getRefreshToken();
 
-      this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content, requestOptions).then(function (response) {
+      this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content, this.requestOptions).then(function (response) {
         _this11.setResponseObject(response);
         _this11.authentication.resolveUpdateTokenCallstack(_this11.isAuthenticated());
       }).catch(function (error) {
@@ -1348,7 +1348,7 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
 
     if ((typeof emailOrCredentials === 'undefined' ? 'undefined' : _typeof(emailOrCredentials)) === 'object') {
       normalized.credentials = emailOrCredentials;
-      normalized.options = _extends({ passwordOrOptions: passwordOrOptions }, requestOptions);
+      normalized.options = _extends({ passwordOrOptions: passwordOrOptions }, this.requestOptions);
       normalized.redirectUri = optionsOrRedirectUri;
     } else {
       normalized.credentials = {
@@ -1356,7 +1356,7 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
         'email': emailOrCredentials,
         'password': passwordOrOptions
       };
-      normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, requestOptions);
+      normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, this.requestOptions);
       normalized.redirectUri = redirectUri;
     }
 
