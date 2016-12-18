@@ -17,6 +17,20 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
     };
   }
 
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
   function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
     var desc = {};
     Object['ke' + 'ys'](descriptor).forEach(function (key) {
@@ -1075,6 +1089,11 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
 
       this.authenticated = false;
       this.timeoutID = 0;
+      this.requestOptions = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      };
 
       this.storageEventHandler = function (event) {
         if (event.key !== _this8.config.storageKey || event.newValue === event.oldValue) {
@@ -1271,7 +1290,7 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
       return this.authentication.getPayload();
     };
 
-    AuthService.prototype.updateToken = function updateToken(requestOptions) {
+    AuthService.prototype.updateToken = function updateToken() {
       var _this11 = this;
 
       if (!this.authentication.getRefreshToken()) {
@@ -1335,14 +1354,15 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
 
       if ((typeof emailOrCredentials === 'undefined' ? 'undefined' : _typeof(emailOrCredentials)) === 'object') {
         normalized.credentials = emailOrCredentials;
-        normalized.options = passwordOrOptions;
+        normalized.options = _extends({ passwordOrOptions: passwordOrOptions }, requestOptions);
         normalized.redirectUri = optionsOrRedirectUri;
       } else {
         normalized.credentials = {
+          "grant_type": "password",
           'email': emailOrCredentials,
           'password': passwordOrOptions
         };
-        normalized.options = optionsOrRedirectUri;
+        normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, requestOptions);
         normalized.redirectUri = redirectUri;
       }
 

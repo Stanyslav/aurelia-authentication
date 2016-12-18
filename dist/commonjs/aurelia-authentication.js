@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FetchConfig = exports.AuthorizeStep = exports.AuthenticateStep = exports.AuthService = exports.Authentication = exports.OAuth2 = exports.OAuth1 = exports.AuthLock = exports.Storage = exports.BaseConfig = exports.logger = exports.Popup = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _dec, _class2, _dec2, _class3, _dec3, _class4, _dec4, _class5, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _class6, _desc, _value, _class7, _dec12, _dec13, _class8, _desc2, _value2, _class9, _dec14, _class11, _dec15, _class12, _dec16, _class13;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -1081,6 +1083,11 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
 
     this.authenticated = false;
     this.timeoutID = 0;
+    this.requestOptions = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
 
     this.storageEventHandler = function (event) {
       if (event.key !== _this8.config.storageKey || event.newValue === event.oldValue) {
@@ -1277,7 +1284,7 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
     return this.authentication.getPayload();
   };
 
-  AuthService.prototype.updateToken = function updateToken(requestOptions) {
+  AuthService.prototype.updateToken = function updateToken() {
     var _this11 = this;
 
     if (!this.authentication.getRefreshToken()) {
@@ -1341,14 +1348,15 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
 
     if ((typeof emailOrCredentials === 'undefined' ? 'undefined' : _typeof(emailOrCredentials)) === 'object') {
       normalized.credentials = emailOrCredentials;
-      normalized.options = passwordOrOptions;
+      normalized.options = _extends({ passwordOrOptions: passwordOrOptions }, requestOptions);
       normalized.redirectUri = optionsOrRedirectUri;
     } else {
       normalized.credentials = {
+        "grant_type": "password",
         'email': emailOrCredentials,
         'password': passwordOrOptions
       };
-      normalized.options = optionsOrRedirectUri;
+      normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, requestOptions);
       normalized.redirectUri = redirectUri;
     }
 

@@ -39,6 +39,13 @@ export class AuthService {
    */
   timeoutID: number = 0;
 
+  requestOptions  = {
+    headers: {
+      //'Authorization': 'Basic anNjbGllbnQ6c2VjcmV0Og==',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+};
+
   /**
    *  Create an AuthService instance
    *
@@ -359,7 +366,7 @@ export class AuthService {
    *
    * @returns {Promise<any>} Requests new token. can be called multiple times
    */
-  updateToken(requestOptions: {}): Promise<any> {
+  updateToken(): Promise<any> {
     if (!this.authentication.getRefreshToken()) {
       return Promise.reject(new Error('refreshToken not set'));
     }
@@ -443,14 +450,15 @@ export class AuthService {
 
     if (typeof emailOrCredentials === 'object') {
       normalized.credentials = emailOrCredentials;
-      normalized.options     = passwordOrOptions;
+      normalized.options     = {passwordOrOptions, ...requestOptions};
       normalized.redirectUri = optionsOrRedirectUri;
     } else {
       normalized.credentials = {
+        "grant_type": "password",
         'email'   : emailOrCredentials,
         'password': passwordOrOptions
       };
-      normalized.options     = optionsOrRedirectUri;
+      normalized.options     = {optionsOrRedirectUri, ...requestOptions};
       normalized.redirectUri = redirectUri;
     }
 

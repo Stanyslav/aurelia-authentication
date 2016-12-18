@@ -405,6 +405,7 @@ export declare class AuthService {
      * @param  {number}
      */
   timeoutID: number;
+  requestOptions: any;
   
   /**
      *  Create an AuthService instance
@@ -546,7 +547,7 @@ export declare class AuthService {
      *
      * @returns {Promise<any>} Requests new token. can be called multiple times
      */
-  updateToken(requestOptions: {}): Promise<any>;
+  updateToken(): Promise<any>;
   
   /**
      * Signup locally. Login and redirect depending on config

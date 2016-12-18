@@ -3,7 +3,7 @@
 System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia-logging', 'aurelia-dependency-injection', 'aurelia-metadata', 'aurelia-event-aggregator', 'aurelia-templating-resources', 'aurelia-api', 'aurelia-router', 'aurelia-fetch-client', './authFilterValueConverter', './authenticatedValueConverter', './authenticatedFilterValueConverter'], function (_export, _context) {
   "use strict";
 
-  var extend, jwtDecode, PLATFORM, DOM, parseQueryString, join, buildQueryString, getLogger, inject, Container, deprecated, EventAggregator, BindingSignaler, Rest, Config, Redirect, HttpClient, AuthFilterValueConverter, AuthenticatedValueConverter, AuthenticatedFilterValueConverter, _dec, _class2, _dec2, _class3, _dec3, _class4, _dec4, _class5, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _class6, _desc, _value, _class7, _dec12, _dec13, _class8, _desc2, _value2, _class9, _dec14, _class11, _dec15, _class12, _dec16, _class13, _typeof, _createClass, Popup, buildPopupWindowOptions, parseUrl, logger, BaseConfig, Storage, AuthLock, OAuth1, OAuth2, Authentication, AuthService, AuthenticateStep, AuthorizeStep, FetchConfig;
+  var extend, jwtDecode, PLATFORM, DOM, parseQueryString, join, buildQueryString, getLogger, inject, Container, deprecated, EventAggregator, BindingSignaler, Rest, Config, Redirect, HttpClient, AuthFilterValueConverter, AuthenticatedValueConverter, AuthenticatedFilterValueConverter, _extends, _dec, _class2, _dec2, _class3, _dec3, _class4, _dec4, _class5, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _class6, _desc, _value, _class7, _dec12, _dec13, _class8, _desc2, _value2, _class9, _dec14, _class11, _dec15, _class12, _dec16, _class13, _typeof, _createClass, Popup, buildPopupWindowOptions, parseUrl, logger, BaseConfig, Storage, AuthLock, OAuth1, OAuth2, Authentication, AuthService, AuthenticateStep, AuthorizeStep, FetchConfig;
 
   function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
     var desc = {};
@@ -149,6 +149,20 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
       AuthenticatedFilterValueConverter = _authenticatedFilterValueConverter.AuthenticatedFilterValueConverter;
     }],
     execute: function () {
+      _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+
+          for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+
+        return target;
+      };
+
       _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
         return typeof obj;
       } : function (obj) {
@@ -1182,6 +1196,11 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
 
           this.authenticated = false;
           this.timeoutID = 0;
+          this.requestOptions = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          };
 
           this.storageEventHandler = function (event) {
             if (event.key !== _this8.config.storageKey || event.newValue === event.oldValue) {
@@ -1378,7 +1397,7 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
           return this.authentication.getPayload();
         };
 
-        AuthService.prototype.updateToken = function updateToken(requestOptions) {
+        AuthService.prototype.updateToken = function updateToken() {
           var _this11 = this;
 
           if (!this.authentication.getRefreshToken()) {
@@ -1442,14 +1461,15 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
 
           if ((typeof emailOrCredentials === 'undefined' ? 'undefined' : _typeof(emailOrCredentials)) === 'object') {
             normalized.credentials = emailOrCredentials;
-            normalized.options = passwordOrOptions;
+            normalized.options = _extends({ passwordOrOptions: passwordOrOptions }, requestOptions);
             normalized.redirectUri = optionsOrRedirectUri;
           } else {
             normalized.credentials = {
+              "grant_type": "password",
               'email': emailOrCredentials,
               'password': passwordOrOptions
             };
-            normalized.options = optionsOrRedirectUri;
+            normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, requestOptions);
             normalized.redirectUri = redirectUri;
           }
 
