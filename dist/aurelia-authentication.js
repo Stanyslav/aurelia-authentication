@@ -1696,7 +1696,7 @@ export class AuthService {
     } else {
       normalized.credentials = {
         "grant_type": "password",
-        'email'   : emailOrCredentials,
+        'username'   : emailOrCredentials,
         'password': passwordOrOptions
       };
       normalized.options     = {optionsOrRedirectUri, ...this.requestOptions};

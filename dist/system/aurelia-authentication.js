@@ -1466,7 +1466,7 @@ System.register(['extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurelia
           } else {
             normalized.credentials = {
               "grant_type": "password",
-              'email': emailOrCredentials,
+              'username': emailOrCredentials,
               'password': passwordOrOptions
             };
             normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, this.requestOptions);

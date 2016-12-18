@@ -1353,7 +1353,7 @@ var AuthService = exports.AuthService = (_dec12 = (0, _aureliaDependencyInjectio
     } else {
       normalized.credentials = {
         "grant_type": "password",
-        'email': emailOrCredentials,
+        'username': emailOrCredentials,
         'password': passwordOrOptions
       };
       normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, this.requestOptions);

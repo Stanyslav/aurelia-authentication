@@ -1247,7 +1247,7 @@ export let AuthService = (_dec12 = inject(Authentication, BaseConfig, BindingSig
     } else {
       normalized.credentials = {
         "grant_type": "password",
-        'email': emailOrCredentials,
+        'username': emailOrCredentials,
         'password': passwordOrOptions
       };
       normalized.options = _extends({ optionsOrRedirectUri }, this.requestOptions);

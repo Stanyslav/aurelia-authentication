@@ -1359,7 +1359,7 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
       } else {
         normalized.credentials = {
           "grant_type": "password",
-          'email': emailOrCredentials,
+          'username': emailOrCredentials,
           'password': passwordOrOptions
         };
         normalized.options = _extends({ optionsOrRedirectUri: optionsOrRedirectUri }, this.requestOptions);
