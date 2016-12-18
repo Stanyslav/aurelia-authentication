@@ -546,7 +546,7 @@ export declare class AuthService {
      *
      * @returns {Promise<any>} Requests new token. can be called multiple times
      */
-  updateToken(): Promise<any>;
+  updateToken(requestOptions: {}): Promise<any>;
   
   /**
      * Signup locally. Login and redirect depending on config

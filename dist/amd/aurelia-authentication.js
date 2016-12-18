@@ -1271,7 +1271,7 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
       return this.authentication.getPayload();
     };
 
-    AuthService.prototype.updateToken = function updateToken() {
+    AuthService.prototype.updateToken = function updateToken(requestOptions) {
       var _this11 = this;
 
       if (!this.authentication.getRefreshToken()) {
@@ -1287,7 +1287,7 @@ define(['exports', 'extend', 'jwt-decode', 'aurelia-pal', 'aurelia-path', 'aurel
 
         content[this.config.refreshTokenSubmitProp] = this.authentication.getRefreshToken();
 
-        this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content).then(function (response) {
+        this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content, requestOptions).then(function (response) {
           _this11.setResponseObject(response);
           _this11.authentication.resolveUpdateTokenCallstack(_this11.isAuthenticated());
         }).catch(function (error) {

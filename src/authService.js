@@ -359,7 +359,7 @@ export class AuthService {
    *
    * @returns {Promise<any>} Requests new token. can be called multiple times
    */
-  updateToken(): Promise<any> {
+  updateToken(requestOptions: {}): Promise<any> {
     if (!this.authentication.getRefreshToken()) {
       return Promise.reject(new Error('refreshToken not set'));
     }
@@ -375,7 +375,7 @@ export class AuthService {
 
       this.client.post(this.config.joinBase(this.config.refreshTokenUrl
                                             ? this.config.refreshTokenUrl
-                                            : this.config.loginUrl), content)
+                                            : this.config.loginUrl), content,requestOptions)
         .then(response => {
           this.setResponseObject(response);
           this.authentication.resolveUpdateTokenCallstack(this.isAuthenticated());

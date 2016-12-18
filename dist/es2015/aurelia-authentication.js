@@ -1177,7 +1177,7 @@ export let AuthService = (_dec12 = inject(Authentication, BaseConfig, BindingSig
     return this.authentication.getPayload();
   }
 
-  updateToken() {
+  updateToken(requestOptions) {
     if (!this.authentication.getRefreshToken()) {
       return Promise.reject(new Error('refreshToken not set'));
     }
@@ -1191,7 +1191,7 @@ export let AuthService = (_dec12 = inject(Authentication, BaseConfig, BindingSig
 
       content[this.config.refreshTokenSubmitProp] = this.authentication.getRefreshToken();
 
-      this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content).then(response => {
+      this.client.post(this.config.joinBase(this.config.refreshTokenUrl ? this.config.refreshTokenUrl : this.config.loginUrl), content, requestOptions).then(response => {
         this.setResponseObject(response);
         this.authentication.resolveUpdateTokenCallstack(this.isAuthenticated());
       }).catch(error => {
